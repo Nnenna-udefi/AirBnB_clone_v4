@@ -6,8 +6,7 @@ from models import storage
 import uuid
 
 app = Flask('web_flask')
-app.url_map.strict_slashes = False
-cache_id = uuid.uuid4()
+app.url_map.strict_slashes = Fals
 
 
 @app.route('/0-hbnb')
@@ -16,6 +15,7 @@ def display_hbnb():
     states = storage.all('State')
     amenities = storage.all('Amenity')
     places = storage.all('Place')
+    cache_id = str(uuid.uuid4())
     return render_template('0-hbnb.html', cache_id=cache_id,
                            states=states,
                            amenities=amenities,
