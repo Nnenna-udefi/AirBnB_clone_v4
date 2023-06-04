@@ -6,7 +6,7 @@ from models import storage
 import uuid
 
 app = Flask('web_flask')
-app.url_map.strict_slashes = Fals
+app.url_map.strict_slashes = False
 
 
 @app.route('/0-hbnb')
