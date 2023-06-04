@@ -3,8 +3,11 @@
 dropdown menus and rental listings"""
 from flask import Flask, render_template
 from models import storage
+import uuid
+
 app = Flask('web_flask')
 app.url_map.strict_slashes = False
+cache_id = uuid.uuid4()
 
 
 @app.route('/0-hbnb')
@@ -13,7 +16,7 @@ def display_hbnb():
     states = storage.all('State')
     amenities = storage.all('Amenity')
     places = storage.all('Place')
-    return render_template('0-hbnb.html',
+    return render_template('0-hbnb.html', cache_id=cache_id,
                            states=states,
                            amenities=amenities,
                            places=places)
