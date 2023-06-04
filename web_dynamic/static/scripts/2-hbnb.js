@@ -26,4 +26,17 @@ $(document).ready(function () {
             return (checked_box.join(', '));
     });
 });
+  function updateApiAvailability (status) {
+    if (status === 'OK') {
+        $('#api_status').addClass('available');
+    } else {
+        $('#api_status').removeClass('available');
+    }
+  }
+
+  // request api status at port 5001
+  $.get('http://0.0.0.0:5001/api/v1/status/', function(data) {
+    updateApiAvailability(data.status);
+  });
+
 });
