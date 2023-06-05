@@ -38,4 +38,30 @@ $(document).ready(function () {
   $.get('http://0.0.0.0:5001/api/v1/status/', function (data) {
     updateApiAvailability(data.status);
   });
+
+  function createPlaceArticle (place) {
+    $('<article>').append($('<h2').text(place.name));
+    $('<article>').append($('<div>').addClass('price_by_night').text('$' + place.price_by_night));
+    const information = $('<div>').addClass('information');
+    information.append($('<div>').addClass('max_guest').addClass('guest_image').html(place.max_guest));
+    information.append($('<div>').addClass('number_rooms').addClass('bed_image').html(place.number_rooms));
+    information.append($('<div>').addClass('number_bathrooms').addClass('bath_image').html(place.number_bathrooms));
+    $('<article>').append(information);
+    $('<article>').append($('<div>').addClass('description').text(place.description));
+    $('.places').append($('<article>'));
+  }
+
+  // Request the places data
+  $.ajax({
+    url: 'http://0.0.0.0:5001/api/v1/places_search/',
+    type: 'POST',
+    contentType: 'application/json',
+    data: '{}',
+    success: function (data) {
+      // Loop through the places data and create articles
+      data.forEach(function (place) {
+        createPlaceArticle(place);
+      });
+    }
+  });
 });
